@@ -3,6 +3,7 @@ package controlers
 import (
 	"backend/database"
 	"backend/models"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -32,4 +33,17 @@ func AddRecipes(c *fiber.Ctx) error {
 	database.DB.Create(&recipe)
 
 	return c.JSON(recipe)
+}
+
+func SearchRecipes(c *fiber.Ctx) error {
+	title := c.Params("title")
+	title = strings.ReplaceAll(title, "%20", " ")
+
+	var recipes models.Recipe
+
+	if err := database.DB.Where("Title = ?", title).First(&recipes).Error; err != nil {
+		return c.SendString(err.Error())
+	}
+
+	return c.JSON(recipes)
 }
