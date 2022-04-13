@@ -12,11 +12,16 @@ from w3lib.html import remove_tags
 
 def parse_Level(level):
     level = level.replace(' mins ', '')
-    l = level.split('hrs')
-    l = [int(element.strip()) for element in l]
     duration  = level
-    if len(l) > 0:
-        duration = l[0]*60 + l[1]
+    if 'hrs' in level:
+        l = level.split('hrs')
+        l = [int(element.strip()) for element in l]
+        print("\n\nlist", l)
+        print("\n\n")
+        if len(l) == 2:
+            duration = l[0]*60 + l[1]
+        elif len(l) == 1:
+            duration  = l[0]*60
     return str(duration)
 
 def parseSpecial(text):

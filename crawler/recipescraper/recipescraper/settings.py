@@ -12,6 +12,15 @@ BOT_NAME = 'recipescraper'
 SPIDER_MODULES = ['recipescraper.spiders']
 NEWSPIDER_MODULE = 'recipescraper.spiders'
 
+CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
+     drivername="mysql",
+     user="root",
+     passwd="root",
+     host="localhost",
+     port="3306",
+     db_name="scrapy_recipes",
+)
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'recipescraper (+http://www.yourdomain.com)'
@@ -62,9 +71,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'recipescraper.pipelines.RecipescraperPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'recipescraper.pipelines.RecipescraperPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
