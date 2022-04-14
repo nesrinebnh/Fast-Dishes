@@ -28,7 +28,7 @@ class RecipescraperPipeline:
         This method is called for every item pipeline component
         """
         print('spider::', spider.name)
-        if spider.name == 'recipes':
+        if spider.name == 'recipe':
             session = self.Session()
             recipe = Recipe()
             recipe.title = item["title"]

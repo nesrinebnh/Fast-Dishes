@@ -9,13 +9,31 @@ from gc import callbacks
 import scrapy
 from recipescraper.items import RecipescraperItem
 from scrapy.loader import ItemLoader
+import mysql.connector
+
+def getCollectionUrls():
+    mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="scrapy_recipes"
+    )
+
+    mycursor = mydb.cursor()
+
+    mycursor.execute("SELECT * FROM collections")
+
+    myresult = mycursor.fetchall()
+
+    l = []
+    for x in myresult:
+        l.append(x[1])
+    
+    return l
 
 class RecipeSpider(scrapy.Spider):
     name = 'recipe'
-    start_urls = [
-                  'https://www.bbcgoodfoodme.com/collections/200-400-calories/',
-                  'https://www.bbcgoodfoodme.com/collections/cheap-family-suppers/'
-                  ]
+    start_urls = getCollectionUrls()
     
     def parse(self, response):
         

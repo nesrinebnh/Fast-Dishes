@@ -15,8 +15,10 @@ def parse_Level(level):
     duration  = level
     if 'hrs' in level:
         l = level.split('hrs')
-        l = [int(element.strip()) for element in l]
         print("\n\nlist", l)
+        l = [element for element in l if element and element != ' ']
+        l = [int(element.strip()) for element in l]
+        
         print("\n\n")
         if len(l) == 2:
             duration = l[0]*60 + l[1]
