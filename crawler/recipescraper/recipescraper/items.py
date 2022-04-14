@@ -40,3 +40,6 @@ class RecipescraperItem(scrapy.Item):
     image_url = scrapy.Field(input_processor = MapCompose(remove_tags), output_processor=TakeFirst())
     level= scrapy.Field(input_processor = MapCompose(remove_tags), output_processor=TakeFirst())
     duration = scrapy.Field(input_processor = MapCompose(remove_tags, parse_Level), output_processor=TakeFirst())
+    
+class CollectionItem(scrapy.Item):
+    url = scrapy.Field(input_processor = MapCompose(remove_tags), output_processor=TakeFirst())

@@ -9,7 +9,7 @@ from itemadapter import ItemAdapter
 import scrapy
 from sqlalchemy.orm import sessionmaker
 from scrapy.exceptions import DropItem
-from recipescraper.models import Recipe, db_connect, create_table 
+from recipescraper.models import Recipe,Collection, db_connect, create_table 
 
 
 class RecipescraperPipeline:
@@ -27,25 +27,42 @@ class RecipescraperPipeline:
         """Save recipes in the database
         This method is called for every item pipeline component
         """
-        session = self.Session()
-        recipe = Recipe()
-        recipe.title = item["title"]
-        recipe.description = item['description']
-        recipe.url = item['url']
-        recipe.image_url = item['image_url']
-        recipe.level = item['level']
-        recipe.duration = item['duration']
+        print('spider::', spider.name)
+        if spider.name == 'recipes':
+            session = self.Session()
+            recipe = Recipe()
+            recipe.title = item["title"]
+            recipe.description = item['description']
+            recipe.url = item['url']
+            recipe.image_url = item['image_url']
+            recipe.level = item['level']
+            recipe.duration = item['duration']
       
 
-        try:
-            session.add(recipe)
-            session.commit()
+            try:
+                session.add(recipe)
+                session.commit()
 
-        except:
-            session.rollback()
-            raise
+            except:
+                session.rollback()
+                raise
 
-        finally:
-            session.close()
+            finally:
+                session.close()
+        else:
+            session = self.Session()
+            collection = Collection()
+            collection.url = item['url']
+      
 
+            try:
+                session.add(collection)
+                session.commit()
+
+            except:
+                session.rollback()
+                raise
+
+            finally:
+                session.close()
         return item

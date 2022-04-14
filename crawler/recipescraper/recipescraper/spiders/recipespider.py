@@ -12,7 +12,10 @@ from scrapy.loader import ItemLoader
 
 class RecipeSpider(scrapy.Spider):
     name = 'recipe'
-    start_urls = ['https://www.bbcgoodfoodme.com/collections/cheap-family-suppers/']
+    start_urls = [
+                  'https://www.bbcgoodfoodme.com/collections/200-400-calories/',
+                  'https://www.bbcgoodfoodme.com/collections/cheap-family-suppers/'
+                  ]
     
     def parse(self, response):
         

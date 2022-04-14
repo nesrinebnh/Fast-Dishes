@@ -30,3 +30,8 @@ class Recipe(Base):
     image_url = Column(String(255))
     level= Column(String(50))
     duration = Column(Integer)
+
+class Collection(Base):
+    __tablename__ = "collections"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    url = Column(String(255))
